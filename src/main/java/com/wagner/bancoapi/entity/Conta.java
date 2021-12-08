@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
+//@Entity
 //@Data
 //@Builder
 //@AllArgsConstructor
@@ -15,15 +15,15 @@ import javax.persistence.*;
 public abstract class Conta {
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int numero;
-
-    @Column(nullable = false)
-    protected int agencia;
-    protected double saldo;
-
-    @ManyToOne
-    protected Cliente cliente;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    protected int numero;
+//
+//    @Column(nullable = false)
+//    protected int agencia;
+//    protected double saldo;
+//
+//    @ManyToOne
+//    protected Cliente cliente;
 
 }
