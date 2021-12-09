@@ -1,7 +1,9 @@
 package com.wagner.bancoapi.service;
 
+import com.wagner.bancoapi.dto.request.ClienteDTO;
 import com.wagner.bancoapi.dto.response.MessageResponseDTO;
 import com.wagner.bancoapi.entity.Cliente;
+import com.wagner.bancoapi.mapper.ClienteMapper;
 import com.wagner.bancoapi.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,14 +14,19 @@ public class ClienteService {
 
     private ClienteRepository clienteRepository;
 
+    private final ClienteMapper clienteMapper = ClienteMapper.INSTANCE;
+
     @Autowired
     public ClienteService(ClienteRepository clienteRepository){
         this.clienteRepository = clienteRepository;
     }
 
 
-    public MessageResponseDTO createCliente(@RequestBody Cliente cliente){
-        Cliente savedCliente = clienteRepository.save(cliente);
+    public MessageResponseDTO createCliente(@RequestBody ClienteDTO clienteDTO){
+
+        Cliente clienteToSave = clienteMapper.toModel(clienteDTO);
+
+        Cliente savedCliente = clienteRepository.save(clienteToSave);
         return MessageResponseDTO
                 .builder()
                 .mensagem("Criado cliente com ID:" + savedCliente.getId())
