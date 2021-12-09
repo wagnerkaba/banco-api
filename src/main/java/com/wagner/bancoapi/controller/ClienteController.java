@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/cliente")
@@ -25,8 +26,13 @@ public class ClienteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    // O @Valid serve para indicar que o clienteDTO será validado
+    // O @Valid serve para indicar que os dados do clienteDTO deve ser validado
     public MessageResponseDTO createCliente(@RequestBody @Valid ClienteDTO clienteDTO){
         return clienteService.createCliente(clienteDTO);
+    }
+
+    @GetMapping
+    public List<ClienteDTO> listAll(){
+        return clienteService.listall();
     }
 }

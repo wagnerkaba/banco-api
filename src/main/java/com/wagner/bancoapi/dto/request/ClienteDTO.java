@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-// Esta classe serve para fazer a validação dos dados do Cliente
+// Esta classe faz a validação dos dados do Cliente
 // Exemplo: o cpf é validado para o formato válido no Brasil
 public class ClienteDTO {
 

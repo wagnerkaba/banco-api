@@ -13,8 +13,9 @@ public interface ClienteMapper {
     ClienteMapper INSTANCE = Mappers.getMapper(ClienteMapper.class);
 
 
-
-
+    // O atribute birthDate de Cliente é LocalDate
+    // O atribute birthDate de ClienteDTO é String
+    // É preciso informar essa diferença para o mapstruct através da anotação @Mapping
     @Mapping(target = "birthDate", source = "birthDate", dateFormat = "dd-MM-yyyy")
     Cliente toModel(ClienteDTO clienteDTO);
 

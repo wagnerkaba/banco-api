@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ClienteService {
 
@@ -19,6 +22,15 @@ public class ClienteService {
     @Autowired
     public ClienteService(ClienteRepository clienteRepository){
         this.clienteRepository = clienteRepository;
+    }
+
+    public List<ClienteDTO> listall() {
+        List<Cliente> allClientes = clienteRepository.findAll();
+        return allClientes.stream()
+                .map(clienteMapper::toDTO)
+                .collect(Collectors.toList());
+
+
     }
 
 
