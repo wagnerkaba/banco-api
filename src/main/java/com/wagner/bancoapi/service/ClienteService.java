@@ -33,11 +33,6 @@ public class ClienteService {
 
     }
 
-    private Cliente verifyIfClienteExists(Long id) throws ClienteNotFoundException {
-        return clienteRepository.findById(id)
-                .orElseThrow(()-> new ClienteNotFoundException(id));
-    }
-
     public List<ClienteDTO> listall() {
         List<Cliente> allClientes = clienteRepository.findAll();
         return allClientes.stream()
@@ -53,10 +48,7 @@ public class ClienteService {
         Cliente clienteToSave = clienteMapper.toModel(clienteDTO);
 
         Cliente savedCliente = clienteRepository.save(clienteToSave);
-        return MessageResponseDTO
-                .builder()
-                .mensagem("Criado cliente com ID:" + savedCliente.getId())
-                .build();
+        return MessageResponseDTO(savedCliente.getId(), "Created cliente with ID:");
     }
 
     public ClienteDTO findById(Long id) throws ClienteNotFoundException {
@@ -64,4 +56,27 @@ public class ClienteService {
         return clienteMapper.toDTO(cliente);
 
     }
+
+    public MessageResponseDTO updateClienteById(Long id, ClienteDTO clienteDTO) throws ClienteNotFoundException {
+
+        verifyIfClienteExists(id);
+
+        Cliente clienteToUpdate = clienteMapper.toModel(clienteDTO);
+
+        Cliente updatedCliente = clienteRepository.save(clienteToUpdate);
+        return MessageResponseDTO(updatedCliente.getId(), "Updated cliente with ID:");
+    }
+
+    private MessageResponseDTO MessageResponseDTO(Long id, String message) {
+        return MessageResponseDTO
+                .builder()
+                .mensagem(message + id)
+                .build();
+    }
+
+    private Cliente verifyIfClienteExists(Long id) throws ClienteNotFoundException {
+        return clienteRepository.findById(id)
+                .orElseThrow(()-> new ClienteNotFoundException(id));
+    }
+
 }
