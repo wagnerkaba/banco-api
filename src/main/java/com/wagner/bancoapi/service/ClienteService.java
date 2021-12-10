@@ -3,6 +3,7 @@ package com.wagner.bancoapi.service;
 import com.wagner.bancoapi.dto.request.ClienteDTO;
 import com.wagner.bancoapi.dto.response.MessageResponseDTO;
 import com.wagner.bancoapi.entity.Cliente;
+import com.wagner.bancoapi.exception.ClienteNotFoundException;
 import com.wagner.bancoapi.mapper.ClienteMapper;
 import com.wagner.bancoapi.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,5 +45,13 @@ public class ClienteService {
                 .builder()
                 .mensagem("Criado cliente com ID:" + savedCliente.getId())
                 .build();
+    }
+
+    public ClienteDTO findById(Long id) throws ClienteNotFoundException {
+        Optional<Cliente> optionalCliente = clienteRepository.findById(id);
+        if (optionalCliente.isEmpty()){
+            throw new ClienteNotFoundException(id);
+        }
+        return clienteMapper.toDTO(optionalCliente.get());
     }
 }

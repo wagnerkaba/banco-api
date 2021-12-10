@@ -3,6 +3,7 @@ package com.wagner.bancoapi.controller;
 import com.wagner.bancoapi.dto.request.ClienteDTO;
 import com.wagner.bancoapi.dto.response.MessageResponseDTO;
 import com.wagner.bancoapi.entity.Cliente;
+import com.wagner.bancoapi.exception.ClienteNotFoundException;
 import com.wagner.bancoapi.repository.ClienteRepository;
 import com.wagner.bancoapi.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,13 @@ public class ClienteController {
     }
 
     @GetMapping
-    public List<ClienteDTO> listAll(){
+    public List<ClienteDTO> listAllClientes(){
         return clienteService.listall();
     }
+    @GetMapping("/{id}")
+    public ClienteDTO findClienteById(@PathVariable Long id) throws ClienteNotFoundException {
+        return clienteService.findById(id);
+    }
+
+
 }
