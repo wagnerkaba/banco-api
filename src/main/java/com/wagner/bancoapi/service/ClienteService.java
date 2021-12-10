@@ -26,6 +26,18 @@ public class ClienteService {
         this.clienteRepository = clienteRepository;
     }
 
+    public void deleteClienteById(Long id) throws ClienteNotFoundException {
+        verifyIfClienteExists(id);
+
+        clienteRepository.deleteById(id);
+
+    }
+
+    private Cliente verifyIfClienteExists(Long id) throws ClienteNotFoundException {
+        return clienteRepository.findById(id)
+                .orElseThrow(()-> new ClienteNotFoundException(id));
+    }
+
     public List<ClienteDTO> listall() {
         List<Cliente> allClientes = clienteRepository.findAll();
         return allClientes.stream()
@@ -48,17 +60,7 @@ public class ClienteService {
     }
 
     public ClienteDTO findById(Long id) throws ClienteNotFoundException {
-
-//        ===========   CÓDIGO ANTIGO ======================================
-//        Optional<Cliente> optionalCliente = clienteRepository.findById(id);
-//        if (optionalCliente.isEmpty()){
-//            throw new ClienteNotFoundException(id);
-//        }
-//        return clienteMapper.toDTO(optionalCliente.get());
-//        ===================================================================
-
-        Cliente cliente = clienteRepository.findById(id)
-                .orElseThrow(()-> new ClienteNotFoundException(id));
+        Cliente cliente = verifyIfClienteExists(id);
         return clienteMapper.toDTO(cliente);
 
     }
