@@ -28,6 +28,8 @@ public class ClienteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     // O @Valid serve para indicar que os dados do clienteDTO deve ser validado
+    // How do I customize default error message from spring @Valid validation?
+    // https://stackoverflow.com/questions/33663801/how-do-i-customize-default-error-message-from-spring-valid-validation/33664636
     public MessageResponseDTO createCliente(@RequestBody @Valid ClienteDTO clienteDTO){
         return clienteService.createCliente(clienteDTO);
     }

@@ -7,7 +7,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
-// Esta interface utiliza o mapstruct (https://mapstruct.org/) para fazer o mapeamento do ClienteDTO para Cliente
+// Esta interface utiliza o mapstruct para fazer o mapeamento do ClienteDTO para Cliente
+// Para entender o funcionamento do mapstruct, visite: https://mapstruct.org/
 public interface ClienteMapper {
 
     ClienteMapper INSTANCE = Mappers.getMapper(ClienteMapper.class);

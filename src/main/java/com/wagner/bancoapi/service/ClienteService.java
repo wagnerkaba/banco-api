@@ -48,10 +48,18 @@ public class ClienteService {
     }
 
     public ClienteDTO findById(Long id) throws ClienteNotFoundException {
-        Optional<Cliente> optionalCliente = clienteRepository.findById(id);
-        if (optionalCliente.isEmpty()){
-            throw new ClienteNotFoundException(id);
-        }
-        return clienteMapper.toDTO(optionalCliente.get());
+
+//        ===========   CÓDIGO ANTIGO ======================================
+//        Optional<Cliente> optionalCliente = clienteRepository.findById(id);
+//        if (optionalCliente.isEmpty()){
+//            throw new ClienteNotFoundException(id);
+//        }
+//        return clienteMapper.toDTO(optionalCliente.get());
+//        ===================================================================
+
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(()-> new ClienteNotFoundException(id));
+        return clienteMapper.toDTO(cliente);
+
     }
 }
