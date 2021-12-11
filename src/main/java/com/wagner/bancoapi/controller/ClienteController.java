@@ -49,5 +49,10 @@ public class ClienteController {
         clienteService.deleteClienteById(id);
     }
 
+    @PutMapping("/{id}")
+    public MessageResponseDTO updateClienteById (@PathVariable Long id, @RequestBody @Valid ClienteDTO clienteDTO) throws ClienteNotFoundException {
+        return clienteService.updateClienteById(id, clienteDTO);
+    }
+
 
 }
