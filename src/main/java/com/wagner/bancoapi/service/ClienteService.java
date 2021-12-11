@@ -6,6 +6,7 @@ import com.wagner.bancoapi.entity.Cliente;
 import com.wagner.bancoapi.exception.ClienteNotFoundException;
 import com.wagner.bancoapi.mapper.ClienteMapper;
 import com.wagner.bancoapi.repository.ClienteRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,16 +16,21 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ClienteService {
+
+//============================================================================================================
+//    Este construtor pode ser apagado por causa da anotação: @AllArgsConstructor(onConstructor = @__(@Autowired))
+//    @Autowired
+//    public ClienteService(ClienteRepository clienteRepository){this.clienteRepository = clienteRepository;}
+//============================================================================================================
+
 
     private ClienteRepository clienteRepository;
 
     private final ClienteMapper clienteMapper = ClienteMapper.INSTANCE;
 
-    @Autowired
-    public ClienteService(ClienteRepository clienteRepository){
-        this.clienteRepository = clienteRepository;
-    }
+
 
     public void deleteClienteById(Long id) throws ClienteNotFoundException {
         verifyIfClienteExists(id);
